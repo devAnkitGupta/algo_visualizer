@@ -48,7 +48,7 @@ class Home extends StatelessWidget {
         ),
         FloatingActionButton(
           onPressed: () {
-            dfsNotifier.startDfs();
+            dfsNotifier.runDfs();
           },
           child: const Icon(Icons.start),
         ),
@@ -70,7 +70,6 @@ class Home extends StatelessWidget {
     return ValueListenableBuilder<Block>(
       valueListenable: listenable,
       builder: (context, snapshot, _) {
-        print('Rebuilding Snapshot => ${snapshot.isanimated}');
         return AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           height: snapshot.isanimated ? 0 : 100,
@@ -80,6 +79,11 @@ class Home extends StatelessWidget {
             border: Border.all(color: Colors.white, width: 1),
             borderRadius: BorderRadius.circular(snapshot.isanimated ? 0 : 100),
           ),
+          child: Center(
+              child: Text(
+            '${snapshot.row} ${snapshot.column}',
+            style: const TextStyle(fontSize: 14),
+          )),
         );
       },
     );
