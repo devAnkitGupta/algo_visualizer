@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 class DfsNotifier {
   late List<List<ValueNotifier<Block>>> blocksLiveData;
   late ValueNotifier<bool> isDfsRunning;
-  late ValueNotifier<bool> isComplete;
   static List<int> dRow = [0, 1, 0, -1];
   static List<int> dCol = [-1, 0, 1, 0];
 
@@ -27,15 +26,12 @@ class DfsNotifier {
       ),
     );
     isDfsRunning = ValueNotifier(false);
-    isComplete = ValueNotifier(true);
   }
 
   void runDfs() async {
     isDfsRunning.value = true;
-    isComplete.value = false;
     _dfs(0, 0);
     isDfsRunning.value = false;
-    isComplete.value = true;
   }
 
   void _dfs(
