@@ -1,15 +1,11 @@
 import 'dart:collection';
 
+import 'package:algo_visualizer/algos/abstract/mat_algos.dart';
 import 'package:algo_visualizer/consts/app_constants.dart';
 import 'package:algo_visualizer/model/block.dart';
 import 'package:flutter/cupertino.dart';
 
-class DfsNotifier {
-  late List<List<ValueNotifier<Block>>> blocksLiveData;
-  late ValueNotifier<bool> isDfsRunning;
-  static List<int> dRow = [0, 1, 0, -1];
-  static List<int> dCol = [-1, 0, 1, 0];
-
+class DfsNotifier extends MatAlgos {
   DfsNotifier() {
     blocksLiveData = List.generate(
       Constants.matSize,
@@ -28,7 +24,8 @@ class DfsNotifier {
     isDfsRunning = ValueNotifier(false);
   }
 
-  void runDfs() async {
+  @override
+  void runAlgo() async {
     isDfsRunning.value = true;
     _dfs(0, 0);
     isDfsRunning.value = false;

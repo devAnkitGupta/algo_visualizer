@@ -1,20 +1,23 @@
-import 'package:algo_visualizer/algos/dfs/notifiers/dfs_notifier.dart';
+import 'package:algo_visualizer/algos/abstract/mat_algos.dart';
 import 'package:algo_visualizer/model/block.dart';
 import 'package:flutter/material.dart';
 
-class DfsVisualizer extends StatelessWidget {
-  final DfsNotifier dfsNotifier = DfsNotifier();
+class MatDancer extends StatelessWidget {
+  final MatAlgos algo;
 
-  DfsVisualizer({super.key});
+  const MatDancer({
+    super.key,
+    required this.algo,
+  });
 
   @override
   Widget build(BuildContext context) {
-    int gridStateLength = dfsNotifier.blocksLiveData.length;
+    int gridStateLength = algo.blocksLiveData.length;
     return Column(
       children: [
         SizedBox(
-          height: 700,
-          width: 700,
+          height: 500,
+          width: 500,
           child: GridView.builder(
             itemCount: gridStateLength * gridStateLength,
             itemBuilder: (context, index) {
@@ -22,22 +25,22 @@ class DfsVisualizer extends StatelessWidget {
                 context,
                 index,
                 gridStateLength,
-                dfsNotifier,
+                algo,
               );
             },
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: dfsNotifier.blocksLiveData.length,
+              crossAxisCount: algo.blocksLiveData.length,
             ),
           ),
         ),
         ValueListenableBuilder<bool>(
-            valueListenable: dfsNotifier.isDfsRunning,
+            valueListenable: algo.isDfsRunning,
             builder: (context, snapshot, _) {
               return FloatingActionButton(
                 onPressed: snapshot
                     ? () {}
                     : () {
-                        dfsNotifier.runDfs();
+                        algo.runAlgo();
                       },
                 child: const Icon(Icons.start),
               );
@@ -50,13 +53,13 @@ class DfsVisualizer extends StatelessWidget {
     BuildContext context,
     int index,
     int gridLength,
-    DfsNotifier dfsNotifier,
+    MatAlgos algo,
   ) {
     int gridStateLength = gridLength;
     int x, y = 0;
     x = (index / gridStateLength).floor();
     y = (index % gridStateLength);
-    final listenable = dfsNotifier.blocksLiveData[x][y];
+    final listenable = algo.blocksLiveData[x][y];
     return ValueListenableBuilder<Block>(
       valueListenable: listenable,
       builder: (context, snapshot, _) {
