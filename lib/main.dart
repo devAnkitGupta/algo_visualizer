@@ -1,6 +1,5 @@
 import 'package:algo_visualizer/model/block.dart';
 import 'package:flutter/material.dart';
-
 import 'algos/dfs/notifiers/dfs_notifier.dart';
 
 void main() {
@@ -30,28 +29,38 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int gridStateLength = dfsNotifier.blocksLiveData.length;
-    return Stack(
+    return Column(
       children: [
-        GridView.builder(
-          itemCount: gridStateLength * gridStateLength,
-          itemBuilder: (context, index) {
-            return _buildGridItems(
-              context,
-              index,
-              gridStateLength,
-              dfsNotifier,
-            );
-          },
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: dfsNotifier.blocksLiveData.length,
+        SizedBox(
+          height: 700,
+          width: 700,
+          child: GridView.builder(
+            itemCount: gridStateLength * gridStateLength,
+            itemBuilder: (context, index) {
+              return _buildGridItems(
+                context,
+                index,
+                gridStateLength,
+                dfsNotifier,
+              );
+            },
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: dfsNotifier.blocksLiveData.length,
+            ),
           ),
         ),
-        FloatingActionButton(
-          onPressed: () {
-            dfsNotifier.runDfs();
-          },
-          child: const Icon(Icons.start),
-        ),
+        ValueListenableBuilder<bool>(
+            valueListenable: dfsNotifier.isDfsRunning,
+            builder: (context, snapshot, _) {
+              return FloatingActionButton(
+                onPressed: snapshot
+                    ? () {}
+                    : () {
+                        dfsNotifier.runDfs();
+                      },
+                child: const Icon(Icons.start),
+              );
+            }),
       ],
     );
   }
@@ -79,11 +88,6 @@ class Home extends StatelessWidget {
             border: Border.all(color: Colors.white, width: 1),
             borderRadius: BorderRadius.circular(snapshot.isanimated ? 0 : 100),
           ),
-          child: Center(
-              child: Text(
-            '${snapshot.row} ${snapshot.column}',
-            style: const TextStyle(fontSize: 14),
-          )),
         );
       },
     );

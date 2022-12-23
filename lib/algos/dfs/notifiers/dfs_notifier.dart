@@ -1,18 +1,21 @@
 import 'dart:collection';
 
+import 'package:algo_visualizer/consts/app_constants.dart';
 import 'package:algo_visualizer/model/block.dart';
 import 'package:flutter/cupertino.dart';
 
 class DfsNotifier {
-  late ValueNotifier<List<List<Block>>> blocksNotifier;
   late List<List<ValueNotifier<Block>>> blocksLiveData;
+  late ValueNotifier<bool> isDfsRunning;
+  late ValueNotifier<bool> isComplete;
   static List<int> dRow = [0, 1, 0, -1];
   static List<int> dCol = [-1, 0, 1, 0];
+
   DfsNotifier() {
     blocksLiveData = List.generate(
-      20,
+      Constants.matSize,
       (index) => List.generate(
-        20,
+        Constants.matSize,
         (index2) => ValueNotifier(
           Block(
             isCanCross: true,
@@ -23,26 +26,16 @@ class DfsNotifier {
         ),
       ),
     );
-  }
-
-  void startDfs() async {
-    for (int i = 0; i < 20; i++) {
-      for (int j = 0; j < 20; j++) {
-        print('${i} , ${j}');
-        Block block = blocksLiveData[i][j].value;
-        blocksLiveData[i][j].value = Block(
-          isCanCross: block.isCanCross,
-          isanimated: true,
-          row: block.row,
-          column: block.column,
-        );
-        await Future.delayed(const Duration(milliseconds: 200));
-      }
-    }
+    isDfsRunning = ValueNotifier(false);
+    isComplete = ValueNotifier(true);
   }
 
   void runDfs() async {
+    isDfsRunning.value = true;
+    isComplete.value = false;
     _dfs(0, 0);
+    isDfsRunning.value = false;
+    isComplete.value = true;
   }
 
   void _dfs(
@@ -67,21 +60,25 @@ class DfsNotifier {
       for (int i = 0; i < 4; i++) {
         int adjX = data.row + dRow[i];
         int adjY = data.column + dCol[i];
-        if (!(data.row < 0) ||
-            !(data.column < 0) ||
-            !(data.row >= 20) ||
-            !(data.column >= 20)) {
+        final xInRange = _isInRange(adjX);
+        final yInRange = _isInRange(adjY);
+        if (xInRange && yInRange) {
           stack.addFirst(blocksLiveData[adjX][adjY].value);
         }
       }
     }
   }
 
+  bool _isInRange(int index) {
+    if (index < 0 || index >= Constants.matSize) return false;
+    return true;
+  }
+
   bool _isValid(Block data) {
     if (data.row < 0 ||
         data.column < 0 ||
-        data.row >= 20 ||
-        data.column >= 20) {
+        data.row >= Constants.matSize ||
+        data.column >= Constants.matSize) {
       return false;
     }
     if (data.isanimated) return false;
