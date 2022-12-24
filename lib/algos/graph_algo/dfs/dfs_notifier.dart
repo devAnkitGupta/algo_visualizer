@@ -21,20 +21,19 @@ class DfsNotifier extends GraphAlgos {
         ),
       ),
     );
-    isDfsRunning = ValueNotifier(false);
+    isAlgoRunning = ValueNotifier(false);
   }
 
   @override
   void runAlgo() async {
-    isDfsRunning.value = true;
     _dfs(0, 0);
-    isDfsRunning.value = false;
   }
 
   void _dfs(
     int row,
     int column,
   ) async {
+    isAlgoRunning.value = true;
     DoubleLinkedQueue<Block> stack = DoubleLinkedQueue();
     stack.addFirst(blocksLiveData[row][column].value);
     while (stack.isNotEmpty) {
@@ -60,6 +59,7 @@ class DfsNotifier extends GraphAlgos {
         }
       }
     }
+    isAlgoRunning.value = false;
   }
 
   bool _isInRange(int index) {

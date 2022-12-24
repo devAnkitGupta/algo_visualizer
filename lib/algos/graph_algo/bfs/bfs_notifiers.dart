@@ -20,7 +20,7 @@ class BfsNotifier extends GraphAlgos {
         ),
       ),
     );
-    isDfsRunning = ValueNotifier(false);
+    isAlgoRunning = ValueNotifier(false);
   }
 
   @override
@@ -33,7 +33,7 @@ class BfsNotifier extends GraphAlgos {
     int row,
     int column,
   ) async {
-    isDfsRunning.value = true;
+    isAlgoRunning.value = true;
     DoubleLinkedQueue<Point> queue = DoubleLinkedQueue();
     Map<String, bool> keys = {};
     final key = _getKeys(row, column);
@@ -63,7 +63,7 @@ class BfsNotifier extends GraphAlgos {
         }
       }
     }
-    isDfsRunning.value = false;
+    isAlgoRunning.value = false;
   }
 
   bool _isInRange(int index) {

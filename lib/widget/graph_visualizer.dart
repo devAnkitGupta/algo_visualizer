@@ -34,7 +34,7 @@ class GraphVisualizer extends StatelessWidget {
           ),
         ),
         ValueListenableBuilder<bool>(
-          valueListenable: algo.isDfsRunning,
+          valueListenable: algo.isAlgoRunning,
           builder: (context, snapshot, _) {
             return FloatingActionButton(
               onPressed: snapshot
