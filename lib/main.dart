@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'algos/array_algo/bubble/bubble_sort.dart';
+import 'algos/array_algo/quick/quick_sort.dart';
 import 'algos/graph_algo/bfs/bfs_notifiers.dart';
 import 'algos/graph_algo/dfs/dfs_notifier.dart';
 import 'widget/array_sorting_visualizer.dart';
@@ -19,7 +20,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: ArraySortingVisualizer(algo: BubbleSort(),)
+        home: ArraySortingVisualizer(
+          algo: QuickSort(),
+        )
         // GraphVisualizer(
         //   algo: BfsNotifier(),
         // )

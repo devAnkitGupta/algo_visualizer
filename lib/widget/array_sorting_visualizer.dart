@@ -12,7 +12,7 @@ class ArraySortingVisualizer extends StatelessWidget {
       children: [
         SizedBox(
           height: 300,
-          width: 1000,
+          width: 600,
           child: ValueListenableBuilder<List<Bar>>(
             valueListenable: algo.barLiveData,
             builder: (context, snapshot, _) {
