@@ -1,5 +1,5 @@
 import 'dart:collection';
-import 'package:algo_visualizer/algos/abstract/mat_algos.dart';
+import 'package:algo_visualizer/algos/graph_algo/abstract/mat_algos.dart';
 import 'package:algo_visualizer/consts/app_constants.dart';
 import 'package:algo_visualizer/model/block.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'algos/bfs/bfs_notifiers.dart';
-import 'algos/dfs/dfs_notifier.dart';
+import 'algos/graph_algo/bfs/bfs_notifiers.dart';
+import 'algos/graph_algo/dfs/dfs_notifier.dart';
 import 'widget/mat_dancer.dart';
 
 void main() {
