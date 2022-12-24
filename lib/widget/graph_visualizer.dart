@@ -1,11 +1,11 @@
-import 'package:algo_visualizer/algos/graph_algo/abstract/mat_algos.dart';
+import 'package:algo_visualizer/algos/graph_algo/abstract/graph_algos.dart';
 import 'package:algo_visualizer/model/block.dart';
 import 'package:flutter/material.dart';
 
-class MatDancer extends StatelessWidget {
-  final MatAlgos algo;
+class GraphVisualizer extends StatelessWidget {
+  final GraphAlgos algo;
 
-  const MatDancer({
+  const GraphVisualizer({
     super.key,
     required this.algo,
   });
@@ -54,7 +54,7 @@ class MatDancer extends StatelessWidget {
     BuildContext context,
     int index,
     int gridLength,
-    MatAlgos algo,
+    GraphAlgos algo,
   ) {
     int gridStateLength = gridLength;
     int x, y = 0;

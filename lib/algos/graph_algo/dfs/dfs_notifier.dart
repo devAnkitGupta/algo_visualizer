@@ -1,11 +1,11 @@
 import 'dart:collection';
 
-import 'package:algo_visualizer/algos/graph_algo/abstract/mat_algos.dart';
+import 'package:algo_visualizer/algos/graph_algo/abstract/graph_algos.dart';
 import 'package:algo_visualizer/consts/app_constants.dart';
 import 'package:algo_visualizer/model/block.dart';
 import 'package:flutter/cupertino.dart';
 
-class DfsNotifier extends MatAlgos {
+class DfsNotifier extends GraphAlgos {
   DfsNotifier() {
     blocksLiveData = List.generate(
       Constants.matSize,

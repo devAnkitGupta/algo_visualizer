@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'algos/graph_algo/bfs/bfs_notifiers.dart';
 import 'algos/graph_algo/dfs/dfs_notifier.dart';
-import 'widget/mat_dancer.dart';
+import 'widget/graph_visualizer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: MatDancer(
+        home: GraphVisualizer(
           algo: BfsNotifier(),
         )
         // MatDancer(algo: DfsNotifier()),

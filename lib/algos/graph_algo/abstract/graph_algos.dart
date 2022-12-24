@@ -2,7 +2,7 @@ import 'package:algo_visualizer/consts/app_constants.dart';
 import 'package:algo_visualizer/model/block.dart';
 import 'package:flutter/material.dart';
 
-abstract class MatAlgos {
+abstract class GraphAlgos {
   late List<List<ValueNotifier<Block>>> blocksLiveData;
   late ValueNotifier<bool> isDfsRunning;
   List<int> dRow = Constants.dRow;
