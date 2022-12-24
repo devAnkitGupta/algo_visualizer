@@ -34,17 +34,18 @@ class MatDancer extends StatelessWidget {
           ),
         ),
         ValueListenableBuilder<bool>(
-            valueListenable: algo.isDfsRunning,
-            builder: (context, snapshot, _) {
-              return FloatingActionButton(
-                onPressed: snapshot
-                    ? () {}
-                    : () {
-                        algo.runAlgo();
-                      },
-                child: const Icon(Icons.start),
-              );
-            }),
+          valueListenable: algo.isDfsRunning,
+          builder: (context, snapshot, _) {
+            return FloatingActionButton(
+              onPressed: snapshot
+                  ? () {}
+                  : () {
+                      algo.runAlgo();
+                    },
+              child: const Icon(Icons.start),
+            );
+          },
+        ),
       ],
     );
   }
@@ -63,14 +64,53 @@ class MatDancer extends StatelessWidget {
     return ValueListenableBuilder<Block>(
       valueListenable: listenable,
       builder: (context, snapshot, _) {
-        return AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          height: snapshot.isanimated ? 0 : 100,
-          width: snapshot.isanimated ? 0 : 100,
+        return snapshot.isanimated
+            ? const BlockTile()
+            : Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.black,
+                ),
+              );
+      },
+    );
+  }
+}
+
+class BlockTile extends StatefulWidget {
+  const BlockTile({super.key});
+
+  @override
+  State<BlockTile> createState() => _BlockTileState();
+}
+
+class _BlockTileState extends State<BlockTile> {
+  final forwardTweenColor =
+      ColorTween(begin: Colors.black, end: Colors.redAccent);
+  final reverseTweenColor =
+      ColorTween(begin: Colors.redAccent, end: Colors.black);
+  late ColorTween currentTween;
+  @override
+  void initState() {
+    super.initState();
+    currentTween = forwardTweenColor;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TweenAnimationBuilder(
+      tween: currentTween,
+      duration: const Duration(seconds: 3),
+      onEnd: () {
+        setState(() {
+          currentTween = reverseTweenColor;
+        });
+      },
+      builder: (context, value, _) {
+        return Container(
           decoration: BoxDecoration(
-            color: snapshot.isanimated ? Colors.red : Colors.black38,
-            border: Border.all(color: Colors.white, width: 1),
-            borderRadius: BorderRadius.circular(snapshot.isanimated ? 0 : 100),
+            borderRadius: BorderRadius.circular(8),
+            color: value,
           ),
         );
       },
