@@ -16,8 +16,8 @@ class MatDancer extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 500,
-          width: 500,
+          height: 300,
+          width: 300,
           child: GridView.builder(
             itemCount: gridStateLength * gridStateLength,
             itemBuilder: (context, index) {

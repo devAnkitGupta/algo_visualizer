@@ -25,46 +25,45 @@ class BfsNotifier extends MatAlgos {
 
   @override
   void runAlgo() {
-    isDfsRunning.value = true;
     _bfs(0, 0);
-    isDfsRunning.value = false;
   }
 
+// $row$column
   void _bfs(
     int row,
     int column,
   ) async {
-    DoubleLinkedQueue<Block> queue = DoubleLinkedQueue();
-    queue.addFirst(blocksLiveData[row][column].value);
+    isDfsRunning.value = true;
+    DoubleLinkedQueue<Point> queue = DoubleLinkedQueue();
+    Map<String, bool> keys = {};
+    final key = _getKeys(row, column);
+    keys.addAll({key: true});
+    final firstPoint = Point(row, column);
+    queue.add(firstPoint);
     while (queue.isNotEmpty) {
-      Block data = queue.removeLast();
-      if (data.isanimated) {
-        continue;
-      }
-      await Future.delayed(const Duration(milliseconds: 200));
-      blocksLiveData[data.row][data.column].value = Block(
+      final pointData = queue.removeLast();
+      final indexBlock = blocksLiveData[pointData.row][pointData.column];
+      indexBlock.value = Block(
         isCanCross: true,
         isanimated: true,
-        row: data.row,
-        column: data.column,
+        row: pointData.row,
+        column: pointData.column,
       );
-
+      await Future.delayed(const Duration(milliseconds: 200));
       for (int i = 0; i < 4; i++) {
-        int adjX = data.row + dRow[i];
-        int adjY = data.column + dCol[i];
+        int adjX = pointData.row + dRow[i];
+        int adjY = pointData.column + dCol[i];
         final xInRange = _isInRange(adjX);
         final yInRange = _isInRange(adjY);
-        if (xInRange && yInRange) {
-          final block = blocksLiveData[adjX][adjY].value;
-          if (_isValid(data)) {
-            queue.addFirst(data);
-          }
-          // if (!blocksLiveData[adjX][adjY].value.isanimated) {
-          //   queue.addFirst(blocksLiveData[adjX][adjY].value);
-          // }
+        final pointToAdd = Point(adjX, adjY);
+        final key = _getKeys(adjX, adjY);
+        if (xInRange && yInRange && !(keys.containsKey(key))) {
+          queue.addFirst(pointToAdd);
+          keys.addAll({key: true});
         }
       }
     }
+    isDfsRunning.value = false;
   }
 
   bool _isInRange(int index) {
@@ -72,14 +71,14 @@ class BfsNotifier extends MatAlgos {
     return true;
   }
 
-  bool _isValid(Block data) {
-    if (data.row < 0 ||
-        data.column < 0 ||
-        data.row >= Constants.matSize ||
-        data.column >= Constants.matSize) {
-      return false;
-    }
-    if (data.isanimated) return false;
-    return true;
+  String _getKeys(int row, int column) {
+    return '$row$column';
   }
+}
+
+class Point {
+  final int row;
+  final int column;
+
+  Point(this.row, this.column);
 }
