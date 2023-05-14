@@ -17,9 +17,10 @@ class GraphVisualizer extends StatelessWidget {
     int gridStateLength = algo.blocksLiveData.length;
     return Column(
       children: [
+        const SizedBox(height: 20),
         SizedBox(
-          height: 300,
-          width: 300,
+          height: 500,
+          width: 500,
           child: GridView.builder(
             itemCount: gridStateLength * gridStateLength,
             itemBuilder: (context, index) {
@@ -35,18 +36,21 @@ class GraphVisualizer extends StatelessWidget {
             ),
           ),
         ),
-        ValueListenableBuilder<bool>(
-          valueListenable: algo.isAlgoRunning,
-          builder: (context, snapshot, _) {
-            return FloatingActionButton(
-              onPressed: snapshot
-                  ? () {}
-                  : () {
-                      algo.runAlgo();
-                    },
-              child: const Icon(Icons.start),
-            );
-          },
+        Container(
+          padding: const EdgeInsets.only(top: 20),
+          child: ValueListenableBuilder<bool>(
+            valueListenable: algo.isAlgoRunning,
+            builder: (context, snapshot, _) {
+              return FloatingActionButton(
+                onPressed: snapshot
+                    ? () {}
+                    : () {
+                        algo.runAlgo();
+                      },
+                child: const Icon(Icons.play_arrow),
+              );
+            },
+          ),
         ),
       ],
     );
@@ -67,11 +71,10 @@ class GraphVisualizer extends StatelessWidget {
       valueListenable: listenable,
       builder: (context, snapshot, _) {
         return snapshot.isanimated
-            ? const ColorCycler()
-            // const BlockTile()
+            ? const Tile()
             : Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(4),
                   color: Colors.black,
                 ),
               );
