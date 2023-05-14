@@ -1,3 +1,4 @@
+import 'package:algo_visualizer/widget/rainbow_visualizer.dart';
 import 'package:flutter/material.dart';
 import 'algos/array_algo/bubble/bubble_sort.dart';
 import 'algos/array_algo/quick/quick_sort.dart';
@@ -20,12 +21,13 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: ArraySortingVisualizer(
-          algo: QuickSort(),
+        home:
+            // ArraySortingVisualizer(
+            //   algo: QuickSort(),
+            // )
+            GraphVisualizer(
+          algo: BfsNotifier(),
         )
-        // GraphVisualizer(
-        //   algo: BfsNotifier(),
-        // )
         // MatDancer(algo: DfsNotifier()),
         );
   }

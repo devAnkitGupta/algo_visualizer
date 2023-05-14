@@ -2,6 +2,8 @@ import 'package:algo_visualizer/algos/graph_algo/abstract/graph_algos.dart';
 import 'package:algo_visualizer/model/block.dart';
 import 'package:flutter/material.dart';
 
+import 'rainbow_visualizer.dart';
+
 class GraphVisualizer extends StatelessWidget {
   final GraphAlgos algo;
 
@@ -65,7 +67,8 @@ class GraphVisualizer extends StatelessWidget {
       valueListenable: listenable,
       builder: (context, snapshot, _) {
         return snapshot.isanimated
-            ? const BlockTile()
+            ? const ColorCycler()
+            // const BlockTile()
             : Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
